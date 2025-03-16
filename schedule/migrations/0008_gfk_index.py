@@ -2,7 +2,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("contenttypes", "0002_remove_content_type_name"),
         ("schedule", "0007_merge_text_fields"),
@@ -19,11 +18,17 @@ class Migration(migrations.Migration):
             name="object_id",
             field=models.IntegerField(db_index=True),
         ),
-        migrations.AlterIndexTogether(
-            name="calendarrelation", index_together={("content_type", "object_id")}
+        migrations.AddIndex(
+            model_name="calendarrelation",
+            index=models.Index(
+                fields=["content_type", "object_id"], name="calendarrelation_idx"
+            ),
         ),
-        migrations.AlterIndexTogether(
-            name="eventrelation", index_together={("content_type", "object_id")}
+        migrations.AddIndex(
+            model_name="eventrelation",
+            index=models.Index(
+                fields=["content_type", "object_id"], name="eventrelation_idx"
+            ),
         ),
         migrations.AlterField(
             model_name="calendar",
